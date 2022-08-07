@@ -3,7 +3,7 @@ import { isBrowser, __DEV__ } from "@chakra-ui/utils"
 import { createContext } from "@chakra-ui/react-utils"
 import { createPortal } from "react-dom"
 import { usePortalManager } from "./portal-manager"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { startTransition, useEffect, useMemo, useRef, useState } from "react"
 
 type PortalContext = HTMLDivElement | null
 
@@ -88,7 +88,9 @@ const DefaultPortal = (
   ) : (
     <span
       ref={(el) => {
-        if (el) setTempNode(el)
+        startTransition(() => {
+          if (el) setTempNode(el)
+        })
       }}
     />
   )
